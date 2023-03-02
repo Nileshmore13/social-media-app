@@ -1,10 +1,11 @@
+import { Box } from '@mui/system'
 import React from 'react'
 
 const HomePage = () => {
   return (
-    <div>
-      homePage
-    </div>
+    <Box>
+
+    </Box>
   )
 }
 

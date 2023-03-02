@@ -4,13 +4,20 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
-  const mode = useSelector((state)=>state.mode);
-  const theme = useMemo(()=>createTheme(themeSettings(mode)),[mode])
+  const mode = useSelector((state) => state.mode);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  
   return (
     <div className="App">
-      <AllRoutes/>
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+          <Navbar/>
+          <AllRoutes />
+        </CssBaseline>
+      </ThemeProvider>
     </div>
   );
 }
