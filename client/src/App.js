@@ -4,7 +4,6 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
-import Navbar from "./components/navbar/Navbar";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -14,7 +13,6 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <CssBaseline>
-          <Navbar/>
           <AllRoutes />
         </CssBaseline>
       </ThemeProvider>
