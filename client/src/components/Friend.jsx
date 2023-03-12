@@ -28,7 +28,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const patchFriend = () => {
     axios.patch(`${server}/users/${_id}/${friendId}`,{
-      headers: { Authorization: `Bearer ${token}` }
+      header: { Authorization: `Bearer ${token}` }
     })
       .then((res) => dispatch(setFriends({friends:res.data})))
       .catch((err) => console.log(err));
@@ -37,7 +37,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   return (
     <FlexBetween>
       <FlexBetween gap="1rem">
-        <UserImage image={userPicturePath} size="50px" />
+        <UserImage image={userPicturePath} size="50px"/>
         <Box
           onClick={() => {
             navigate(`/profile/${friendId}`);
@@ -63,7 +63,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         </Box>
       </FlexBetween>
       <IconButton onClick={()=>patchFriend()} sx={{
-        backgroundColor:primaryLight, p:"0.6rem"
+        backgroundColor:primaryLight, p:"0.9rem"
       }}>
         {isFriend ? (
             <PersonRemoveOutlined sx={{color:primaryDark}}/> 

@@ -26,7 +26,9 @@ const UserWidget = ({ userId, picturePath }) => {
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
 
+
   const getUser = async () => {
+     
     await axios
       .get(`${server}/users/${userId}`, {
         headers: {

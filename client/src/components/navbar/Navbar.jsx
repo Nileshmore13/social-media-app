@@ -47,7 +47,7 @@ const Navbar = () => {
       <FlexBetween gap="1.75rem">
         <Typography
           fontWeight="bold"
-          fontSize="clamp(1rem 2rem 2.25rem)"
+          fontSize="clamp(1rem,1.80rem,2.10rem)"
           color="primary"
           onClick={() => navigate("/home")}
           sx={{
@@ -75,7 +75,7 @@ const Navbar = () => {
       </FlexBetween>
       {/* Desktop Nav */}
       {isNonMobileScreen ? (
-        <FlexBetween gap="2rem">
+        <FlexBetween gap="2rem" alignItems="center">
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
@@ -142,7 +142,7 @@ const Navbar = () => {
             display="flex"
             flexDirection="column"
             justifyContent="center"
-            alignitems="center"
+            alignItems="center"
             gap="3rem"
           >
             <IconButton

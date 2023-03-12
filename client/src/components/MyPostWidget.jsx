@@ -59,7 +59,7 @@ const MyPostWidget = ({ picturePath }) => {
         }
       )
       .then((res) => {
-        dispatch(setPosts(res.data));
+        dispatch(setPosts({posts:res.data}));
         setImage(null);
         setPost("");
       })

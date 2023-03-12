@@ -1,4 +1,4 @@
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Divider, IconButton, Input, Typography, useTheme } from "@mui/material";
 import axios from "axios";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -89,7 +89,7 @@ const SinglePostWidget = ({
             </IconButton>
           </FlexBetween>
 
-          <FlexBetween gap="0.3rem">
+          <FlexBetween gap="0.3rem" >
             <IconButton onClick={() => setIscommets(!isComments)}>
               <ChatBubbleOutlineOutlined />
               <Typography ml="0.5rem">{comments.length}</Typography>
