@@ -1,4 +1,4 @@
-import { Box, Divider, IconButton, Input, Typography, useTheme } from "@mui/material";
+import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
 import axios from "axios";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -36,7 +36,6 @@ const SinglePostWidget = ({
   const { palette } = useTheme();
 
   const main = palette.neutral.main;
-  const medium = palette.primary.main;
   const primary = palette.primary.main;
 
   const patchLike = () => {
@@ -79,13 +78,14 @@ const SinglePostWidget = ({
       )}
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
-          <FlexBetween gap="0.3rem">
+          <FlexBetween gap="0.4rem">
             <IconButton onClick={patchLike}>
               {isLiked ? (
                 <FavoriteOutlined sx={{ color: primary }} />
               ) : (
                 <FavoriteBorderOutlined />
               )}
+              <Typography ml="0.3rem">{likeCount}</Typography>
             </IconButton>
           </FlexBetween>
 
