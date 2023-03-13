@@ -1,1 +1,1 @@
-export const server = "http://localhost:7001"
+export const server = "https://silver-walrus-veil.cyclic.app"

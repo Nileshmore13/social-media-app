@@ -5,10 +5,8 @@ import * as yup from "yup";
 import Dropzone from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/system";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  Button,
-  Input,
   TextField,
   Typography,
   useMediaQuery,
@@ -17,7 +15,8 @@ import FlexBetween from "components/FlexBetween";
 import { EditOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { server } from "../../server.js";
-import { setLogin } from "../../Redux/index.js";
+import { setLoadingFalse, setLoadingTrue, setLogin } from "../../Redux/index.js";
+import { LoadingButton } from "@mui/lab";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -58,23 +57,27 @@ const Form = () => {
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
 
+  const loading = useSelector((state)=>state.loading)
+
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
     }
+    formData.delete("picture")
     formData.append("picturePath", values.picture.name);
-
+    dispatch(setLoadingTrue());
     const savedUserResponse = await fetch(
-      "http://localhost:7001/auth/register",
+      `${server}/auth/register`,
       {
         method: "POST",
         body: formData,
       }
-    );
+      );
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
+    dispatch(setLoadingFalse());
 
     if (savedUser) {
       setPageType("login");
@@ -82,12 +85,14 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:7001/auth/login", {
+    dispatch(setLoadingTrue())
+    const loggedInResponse = await fetch(`${server}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
     const loggedIn = await loggedInResponse.json();
+    dispatch(setLoadingFalse());
     onSubmitProps.resetForm();
     if (loggedIn) {
       dispatch(
@@ -166,10 +171,10 @@ const Form = () => {
                 />
                 <TextField
                   label="Occupation"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
                   value={values.occupation}
                   name="occupation"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
                   error={
                     Boolean(touched.occupation) && Boolean(errors.occupation)
                   }
@@ -237,7 +242,9 @@ const Form = () => {
 
           {/* BUTTONS */}
           <Box>
-            <Button
+            <LoadingButton
+            loading={loading}
+            loadingIndicator="Loading…"
               fullWidth
               type="submit"
               sx={{
@@ -245,11 +252,11 @@ const Form = () => {
                 p: "1rem",
                 backgroundColor: palette.primary.main,
                 color: palette.background.alt,
-                "&:hover": { color: palette.primary.main },
+                "&:hover": { color: palette.primary.alt },
               }}
             >
               {isLogin ? "LOGIN" : "REGISTER"}
-            </Button>
+            </LoadingButton>
             <Typography
               onClick={() => {
                 setPageType(isLogin ? "register" : "login");
@@ -260,7 +267,7 @@ const Form = () => {
                 color: palette.primary.main,
                 "&:hover": {
                   cursor: "pointer",
-                  color: palette.primary.light,
+                  color: palette.primary.main,
                 },
               }}
             >
